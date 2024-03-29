@@ -24,16 +24,13 @@ public class LoginController {
 		String username = credential.get("username");
 		String password = credential.get("password");
 		List<Users> userByUname = userRepo.findByUsername(username);
+		System.out.println(userByUname);
+
 		for(Users user: userByUname) {
 			if(password.equals(user.getPassword())) {
-				if(user.isAdmin() == true) return user;
-				else {
 					return user;
 				}
 			}
-		}
-
 		return null;
 	}
-
 }
