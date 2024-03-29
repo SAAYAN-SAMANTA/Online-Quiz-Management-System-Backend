@@ -43,4 +43,10 @@ public class QuestionController {
         System.out.println("Inside Get all question");
         return questionService.getAllQuestions();
     }
+
+    @GetMapping("/ques-{tech}")
+    public List<Questions> techselectquestion(@PathVariable String tech){
+        return questionService.gettechquestion(tech);
+    }
+
 }
