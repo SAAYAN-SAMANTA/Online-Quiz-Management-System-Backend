@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class Users {
+public class  Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,15 +19,18 @@ public class Users {
     private String email;
 
     @Column(nullable = false)
-    private boolean isAdmin;
+    private String Role;
 
-	public Users(Long id, String username, String password, String email, boolean isAdmin) {
+	public Users() {
 		super();
+	}
+
+	public Users(Long id, String username, String password, String email, String role) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.isAdmin = isAdmin;
+		Role = role;
 	}
 
 	public Long getId() {
@@ -62,17 +65,11 @@ public class Users {
 		this.email = email;
 	}
 
-	public boolean isAdmin() {
-		return isAdmin;
+	public String getRole() {
+		return Role;
 	}
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setRole(String role) {
+		Role = role;
 	}
-
-	public Users() {
-		super();
-	}
-
-    // Constructors, getters, setters
 }
