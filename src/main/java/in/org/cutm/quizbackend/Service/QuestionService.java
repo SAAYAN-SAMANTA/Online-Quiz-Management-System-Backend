@@ -7,6 +7,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -49,5 +51,11 @@ public class QuestionService {
 
     public List<Questions> getAllQuestions() {
         return questionRepository.findAll();
+    }
+
+    public List<Questions> gettechquestion(String tech){
+        List<Questions> techQues = getAllQuestions()
+                .stream().filter(questions -> Objects.equals(questions.getTechnology(), tech)).collect(Collectors.toList());
+        return techQues;
     }
 }
