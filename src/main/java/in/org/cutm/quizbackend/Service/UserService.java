@@ -1,17 +1,19 @@
 package in.org.cutm.quizbackend.Service;
-
-
 import in.org.cutm.quizbackend.Entity.Users;
 import in.org.cutm.quizbackend.Repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
 
+    private final UserRepository userRepository;
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -35,7 +37,7 @@ public class UserService {
         user.setUsername(updatedUser.getUsername());
         user.setPassword(updatedUser.getPassword());
         user.setEmail(updatedUser.getEmail());
-        user.setAdmin(updatedUser.isAdmin());
+        user.setRole(updatedUser.getRole());
         return userRepository.save(user);
     }
 
@@ -47,5 +49,12 @@ public class UserService {
 
     public List<Users> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public List<Users> getAllCategory(String role){
+//       return userRepository.findByRole(role);
+        List<Users> users = getAllUsers()
+                .stream().filter(user -> Objects.equals(user.getRole(), role)).collect(Collectors.toList());
+        return users;
     }
 }
